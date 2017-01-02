@@ -3,6 +3,9 @@ app.js is an entry point
 before node server, need to start mongo server (mongod --httpinterface)
 start server: node server.js
 
+unknown functions used in server.js seem to be mongoose functions... http://mongoosejs.com/docs/api.html#model_Model.findById
+http://stackoverflow.com/questions/28712248/difference-between-mongodb-and-mongoose
+
 
 Do
 - option to input cover image, make it work

@@ -23,16 +23,6 @@ app.listen( port, function() {
 app.get( '/api', function( request, response ) {
   response.send( 'Library API is running' );
 });
-//Connect to database
-mongoose.connect( 'mongodb://localhost/library_database' );
-//Schemas
-var Book = new mongoose.Schema({
-  title: String,
-  author: String,
-  releaseDate: Date
-});
-//Models
-var BookModel = mongoose.model( 'Book', Book );
 //Get a list of all books
 app.get( '/api/books', function( request, response ) {
   return BookModel.find( function( err, books ) { // p.110. What is .find() anyway? js function?
@@ -43,3 +33,44 @@ app.get( '/api/books', function( request, response ) {
     }
   });
 });
+//Insert a new book. POST route.
+app.post( '/api/books', function( request, response ) { // this saves a book to db (returning an id). How does it work?
+  var book = new BookModel({
+    title: request.body.title,
+    author: request.body.author,
+    releaseDate: request.body.releaseDate
+  });
+  book.save( function( err ) { // what is save()
+    if( !err ) {
+      return console.log( 'created' );
+    } else {
+      return console.log( err );
+    }
+  });
+  return response.send( book );
+});
+//Get a single book by id
+app.get( '/api/books/:id', function( request, response ) {
+  return BookModel.findById( request.params.id, function( err, book ) { // http://mongoosejs.com/docs/api.html#model_Model.findById
+    if( !err ) {
+      return response.send( book );
+    } else {
+      return console.log( err );
+    }
+  });
+});
+
+//Connect to database
+mongoose.connect( 'mongodb://localhost/library_database' );
+//Schemas
+var Book = new mongoose.Schema({
+  title: String,
+  author: String,
+  releaseDate: Date
+});
+//Models
+var BookModel = mongoose.model( 'Book', Book );
+
+
+
+
