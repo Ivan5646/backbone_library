@@ -19,3 +19,27 @@ app.listen( port, function() {
   console.log( 'Express server listening on port %d in %s mode',
   port, app.settings.env );
 });
+// Routes. We define routes by using app followed by one of the HTTP verbs get, put, post, and delete.
+app.get( '/api', function( request, response ) {
+  response.send( 'Library API is running' );
+});
+//Connect to database
+mongoose.connect( 'mongodb://localhost/library_database' );
+//Schemas
+var Book = new mongoose.Schema({
+  title: String,
+  author: String,
+  releaseDate: Date
+});
+//Models
+var BookModel = mongoose.model( 'Book', Book );
+//Get a list of all books
+app.get( '/api/books', function( request, response ) {
+  return BookModel.find( function( err, books ) { // p.110. What is .find() anyway? js function?
+    if( !err ) {
+      return response.send( books );
+    } else {
+      return console.log( err );
+    }
+  });
+});

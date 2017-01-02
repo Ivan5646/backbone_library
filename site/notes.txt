@@ -1,6 +1,8 @@
 app.js is an entry point
 
+before node server, need to start mongo server (mongod --httpinterface)
 start server: node server.js
+
 
 Do
 - option to input cover image, make it work
