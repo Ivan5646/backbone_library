@@ -1,0 +1,6 @@
+app.js is an entry point
+
+start server: node server.js
+
+Do
+- option to input cover image, make it work
