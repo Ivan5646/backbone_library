@@ -3,9 +3,11 @@ var app = app || {};
   el: '#books',
   // in the initialize function we accept an array of data that we pass to the app.Library constructor. We’ll use this to populate our collection with some sample data so that we can see everything is working correctly.
   initialize: function( initialBooks ) { // what is passed in initialBooks?
-    this.collection = new app.Library( initialBooks );
+    this.collection = new app.Library( initialBooks ); // remove initialBooks? p. 117
+    this.collection.fetch({reset: true}); // NEW (Frontend). Fetches a model?
     this.render();
     this.listenTo( this.collection, 'add', this.renderBook ); // make the view render again when a new model is added
+    this.listenTo( this.collection, 'reset', this.render ); // NEW (Frontend).
   },
   // render library by rendering each book in its collection
   render: function() {
