@@ -14,6 +14,4 @@ Do
 - option to input cover image, make it work
 
 
-id
-:
-"586ac49163b3bd6c52000001"
+id 586b7e3205bf59f829000001

@@ -38,7 +38,8 @@ app.post( '/api/books', function( request, response ) { // this saves a book to 
   var book = new BookModel({
     title: request.body.title,
     author: request.body.author,
-    releaseDate: request.body.releaseDate
+    releaseDate: request.body.releaseDate,
+    keywords: request.body.keywords // NEW
   });
   book.save( function( err ) { // what is save()
     if( !err ) {
@@ -66,6 +67,7 @@ app.put( '/api/books/:id', function( request, response ) {
     book.title = request.body.title;
     book.author = request.body.author;
     book.releaseDate = request.body.releaseDate;
+    book.keywords = request.body.keywords; // NEW
     return book.save( function( err ) {
       if( !err ) {
         console.log( 'book updated' );
@@ -97,7 +99,11 @@ mongoose.connect( 'mongodb://localhost/library_database' );
 var Book = new mongoose.Schema({ // like a table?
   title: String,
   author: String,
-  releaseDate: Date
+  releaseDate: Date,
+  keywords: [ Keywords ] // NEW. To add a subschema to an existing schema, we use brackets notation.
+});
+var Keywords = new mongoose.Schema({
+  keyword: String
 });
 //Models
 var BookModel = mongoose.model( 'Book', Book ); // var Model = mongoose.model('Model', schema);
