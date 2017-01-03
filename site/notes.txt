@@ -7,11 +7,21 @@ unknown functions used in server.js seem to be mongoose functions... http://mong
 http://stackoverflow.com/questions/28712248/difference-between-mongodb-and-mongoose
 
 Test DB in browser console
-jQuery.get( '/api/books/586ac49163b3bd6c52000001');
+jQuery.get( '/api/books/586b7e3205bf59f829000001');
 
 
 Do
 - option to input cover image, make it work
 
 
-id 586b7e3205bf59f829000001
+
+  addBook: function( e ) { // adding a new book using the form
+    e.preventDefault();
+    var formData = {};
+    $( '#addBook div' ).children( 'input' ).each( function( i, el ) {
+      if( $( el ).val() != '' ){
+        formData[ el.id ] = $( el ).val();
+      }
+    });
+    this.collection.create( formData ); // allow save new books to db after form submission 
+  }

@@ -1,6 +1,7 @@
 // the entry point of the whole app
 var app = app || {};
 $(function() {
+  $( '#releaseDate' ).datepicker(); // bind a datepicker to our releaseDate field:
   new app.LibraryView();
 });
 
