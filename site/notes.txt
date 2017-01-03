@@ -6,6 +6,14 @@ start server: node server.js
 unknown functions used in server.js seem to be mongoose functions... http://mongoosejs.com/docs/api.html#model_Model.findById
 http://stackoverflow.com/questions/28712248/difference-between-mongodb-and-mongoose
 
+Test DB in browser console
+jQuery.get( '/api/books/586ac49163b3bd6c52000001');
+
 
 Do
 - option to input cover image, make it work
+
+
+id
+:
+"586ac49163b3bd6c52000001"

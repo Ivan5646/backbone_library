@@ -25,7 +25,7 @@ app.get( '/api', function( request, response ) {
 });
 //Get a list of all books
 app.get( '/api/books', function( request, response ) {
-  return BookModel.find( function( err, books ) { // p.110. What is .find() anyway? js function?
+  return BookModel.find( function( err, books ) { //  p.110. What is .find() anyway? js function?
     if( !err ) {
       return response.send( books );
     } else {
@@ -59,17 +59,48 @@ app.get( '/api/books/:id', function( request, response ) {
     }
   });
 });
+//Update a book. p. 114
+app.put( '/api/books/:id', function( request, response ) {
+  console.log( 'Updating book ' + request.body.title );
+  return BookModel.findById( request.params.id, function( err, book ) {
+    book.title = request.body.title;
+    book.author = request.body.author;
+    book.releaseDate = request.body.releaseDate;
+    return book.save( function( err ) {
+      if( !err ) {
+        console.log( 'book updated' );
+      } else {
+        console.log( err );
+      }
+      return response.send( book );
+    });
+  });
+});
+//Delete a book
+app.delete( '/api/books/:id', function( request, response ) {
+  console.log( 'Deleting book with id: ' + request.params.id );
+  return BookModel.findById( request.params.id, function( err, book ) {
+    return book.remove( function( err ) {
+      if( !err ) {
+        console.log( 'Book removed' );
+      return response.send( '' );
+      } else {
+        console.log( err );
+      }
+    });
+  });
+});
 
 //Connect to database
 mongoose.connect( 'mongodb://localhost/library_database' );
 //Schemas
-var Book = new mongoose.Schema({
+var Book = new mongoose.Schema({ // like a table?
   title: String,
   author: String,
   releaseDate: Date
 });
 //Models
-var BookModel = mongoose.model( 'Book', Book );
+var BookModel = mongoose.model( 'Book', Book ); // var Model = mongoose.model('Model', schema);
 
 
 
